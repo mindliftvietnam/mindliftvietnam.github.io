@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>IB11 Chemistry SL M26 Online Exam</title>
+
+<style>
+@page { size: A4; margin: 14mm; }
+* { box-sizing: border-box; }
+
+body {
+  font-family: Arial, sans-serif;
+  background: #d9d9d9;
+  margin: 0;
+  color: #111;
+  user-select: none;
+}
+
+.exam-page {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 20px auto;
+  background: white;
+  padding: 18mm;
+  box-shadow: 0 0 12px rgba(0,0,0,0.25);
+}
+
+.header {
+  text-align: center;
+  border-bottom: 2px solid #000;
+  padding-bottom: 12px;
+}
+
+.header h1 { font-size: 17px; margin: 0; text-transform: uppercase; }
+.header h2 { font-size: 15px; margin: 6px 0; }
+
+.meta {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 24px;
+  font-size: 14px;
+}
+
+.student-box {
+  margin: 18px 0;
+  padding: 12px;
+  border: 1px solid #000;
+}
+
+.student-box input {
+  width: 100%;
+  padding: 8px;
+  margin: 6px 0 12px;
+  border: 1px solid #555;
+  font-size: 14px;
+}
+
+.notice {
+  background: #f6f6f6;
+  border-left: 5px solid #111;
+  padding: 10px;
+  font-size: 13px;
+  margin: 15px 0;
+}
+
+.timer {
+  display: none;
+  position: sticky;
+  top: 0;
+  background: #111;
+  color: white;
+  padding: 12px;
+  text-align: center;
+  font-weight: bold;
+  z-index: 999;
+}
+
+.prestart-message {
+  border: 2px solid #000;
+  padding: 14px;
+  margin: 18px 0;
+  background: #f8f8f8;
+  font-size: 14px;
+}
+
+#examContent {
+  display: none;
+}
+
+.question {
+  border: 1px solid #999;
+  padding: 14px;
+  margin: 18px 0;
+  page-break-inside: avoid;
+}
+
+.question h3 {
+  margin-top: 0;
+  font-size: 16px;
+}
+
+.question label {
+  display: block;
+  margin: 8px 0;
+  line-height: 1.5;
+}
+
+.answer-area {
+  min-height: 150px;
+  border: 1px solid #666;
+  padding: 10px;
+  margin-top: 8px;
+  background: #fff;
+  user-select: text;
+  font-size: 14px;
+}
+
+.toolbar {
+  margin: 8px 0;
+  padding: 6px;
+  border: 1px solid #aaa;
+  background: #f3f3f3;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.toolbar button {
+  padding: 5px 10px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+}
+
+td, th {
+  border: 1px solid #000;
+  padding: 7px;
+  text-align: left;
+}
+
+.btns {
+  text-align: center;
+  margin: 25px 0;
+}
+
+button.main {
+  background: #111;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  margin: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+button.main:hover {
+  background: #444;
+}
+
+#printBtn { display: none; }
+
+.finished-box {
+  display: none;
+  border: 2px solid #000;
+  padding: 15px;
+  margin-top: 20px;
+  background: #f8f8f8;
+}
+
+.warning {
+  color: #b00000;
+  font-weight: bold;
+}
+
+@media print {
+  body { background: white; }
+  .exam-page {
+    box-shadow: none;
+    margin: 0;
+    width: auto;
+    padding: 10mm;
+  }
+  .timer, .toolbar, .btns, #startBtn, #fullscreenBtn, #prestartMessage {
+    display: none !important;
+  }
+  #examContent {
+    display: block !important;
+  }
+}
+</style>
+</head>
+
+<body oncontextmenu="return false">
+
+<div class="timer" id="timerBar">
+  Time Remaining: <span id="timer">65:00</span> |
+  Anti-cheat warnings: <span id="warnings">0</span>
+</div>
+
+<div class="exam-page">
+
+  <div class="header">
+    <h1>THE WESTERN AUSTRALIAN INTERNATIONAL SCHOOL SYSTEM</h1>
+    <h2>PAPER EXAM FOR END OF SEMESTER 2</h2>
+    <p><strong>SCHOOL YEAR: 2025–2026</strong></p>
+  </div>
+
+  <div class="meta">
+    <div><strong>Year:</strong> IB–11</div>
+    <div><strong>Duration:</strong> 65 minutes</div>
+    <div><strong>Subject:</strong> CHEMISTRY IBDP</div>
+    <div><strong>Version:</strong> SL</div>
+    <div><strong>Code:</strong> M26</div>
+    <div><strong>Total:</strong> 40 marks</div>
+  </div>
+
+  <div class="student-box">
+    <label><strong>Student Name</strong></label>
+    <input type="text" id="studentName" placeholder="Type your full name">
+
+    <label><strong>Student Email</strong></label>
+    <input type="email" id="studentEmail" placeholder="Type your email address">
+
+    <button class="main" id="fullscreenBtn" onclick="enterFullscreen()">Enter Fullscreen</button>
+    <button class="main" id="startBtn" onclick="startExam()">Start Exam</button>
+  </div>
+
+  <div class="notice">
+    <strong>Coverage:</strong> Structure 1.1, Structure 1.2, Structure 1.3, Structure 1.4, Structure 1.5,
+    Structure 2.1, Structure 2.2, Structure 3.1, Reactivity 2.1.
+    <br><br>
+    <strong>Note:</strong> Copying, right-clicking, leaving fullscreen, switching tabs, or using keyboard shortcuts
+    may trigger an anti-cheat warning. Students must prepare a printed copy of the periodic table and have a
+    scientific calculator beside them before starting the examination.
+  </div>
+
+  <div class="prestart-message" id="prestartMessage">
+    <strong>Exam not yet started.</strong><br>
+    Enter your full name and email, click <strong>Enter Fullscreen</strong>, then click <strong>Start Exam</strong>.
+    The questions will only appear after the exam has officially started.
+  </div>
+
+  <div id="examContent">
+
+    <h2>SECTION 1: MULTIPLE CHOICE — 10 marks</h2>
+    <p><strong>Choose the best answer.</strong></p>
+
+    <div class="question">
+      <h3>1. Which process is a physical change?</h3>
+      <label><input type="radio" name="q1"> a. Rusting of iron</label>
+      <label><input type="radio" name="q1"> b. Combustion of methane</label>
+      <label><input type="radio" name="q1"> c. Sublimation of iodine</label>
+      <label><input type="radio" name="q1"> d. Neutralization</label>
+    </div>
+
+    <div class="question">
+      <h3>2. Which statement about isotopes is correct?</h3>
+      <label><input type="radio" name="q2"> a. Same neutrons, different protons</label>
+      <label><input type="radio" name="q2"> b. Same protons, different neutrons</label>
+      <label><input type="radio" name="q2"> c. Same mass number only</label>
+      <label><input type="radio" name="q2"> d. Same electrons only</label>
+    </div>
+
+    <div class="question">
+      <h3>3. Which electron configuration is correct for phosphorus?</h3>
+      <label><input type="radio" name="q3"> a. 1s²2s²2p⁶3s²3p³</label>
+      <label><input type="radio" name="q3"> b. 1s²2s²2p⁶3s²3p⁵</label>
+      <label><input type="radio" name="q3"> c. 1s²2s²2p⁶3s¹3p⁴</label>
+      <label><input type="radio" name="q3"> d. 1s²2s²2p⁶3s²3d³</label>
+    </div>
+
+    <div class="question">
+      <h3>4. How many moles are in 11.0 g of CO₂?</h3>
+      <label><input type="radio" name="q4"> a. 0.125</label>
+      <label><input type="radio" name="q4"> b. 0.250</label>
+      <label><input type="radio" name="q4"> c. 0.500</label>
+      <label><input type="radio" name="q4"> d. 1.00</label>
+    </div>
+
+    <div class="question">
+      <h3>5. Which assumption applies to an ideal gas?</h3>
+      <label><input type="radio" name="q5"> a. Molecules strongly attract</label>
+      <label><input type="radio" name="q5"> b. Molecules have large volume</label>
+      <label><input type="radio" name="q5"> c. No intermolecular forces</label>
+      <label><input type="radio" name="q5"> d. Collisions lose energy</label>
+    </div>
+
+    <div class="question">
+      <h3>6. Which compound is ionic?</h3>
+      <label><input type="radio" name="q6"> a. SO₂</label>
+      <label><input type="radio" name="q6"> b. NaBr</label>
+      <label><input type="radio" name="q6"> c. CH₄</label>
+      <label><input type="radio" name="q6"> d. NH₃</label>
+    </div>
+
+    <div class="question">
+      <h3>7. Which substance contains giant covalent bonding?</h3>
+      <label><input type="radio" name="q7"> a. CO₂</label>
+      <label><input type="radio" name="q7"> b. H₂O</label>
+      <label><input type="radio" name="q7"> c. SiO₂</label>
+      <label><input type="radio" name="q7"> d. Cl₂</label>
+    </div>
+
+    <div class="question">
+      <h3>8. Which element is a halogen?</h3>
+      <label><input type="radio" name="q8"> a. Na</label>
+      <label><input type="radio" name="q8"> b. Mg</label>
+      <label><input type="radio" name="q8"> c. Cl</label>
+      <label><input type="radio" name="q8"> d. Ar</label>
+    </div>
+
+    <div class="question">
+      <h3>9. Which oxide is amphoteric?</h3>
+      <label><input type="radio" name="q9"> a. Na₂O</label>
+      <label><input type="radio" name="q9"> b. MgO</label>
+      <label><input type="radio" name="q9"> c. Al₂O₃</label>
+      <label><input type="radio" name="q9"> d. SO₃</label>
+    </div>
+
+    <div class="question">
+      <h3>10. 2H₂ + O₂ → 2H₂O. How many moles of water form from 3.0 mol H₂?</h3>
+      <label><input type="radio" name="q10"> a. 1.5 mol</label>
+      <label><input type="radio" name="q10"> b. 2.0 mol</label>
+      <label><input type="radio" name="q10"> c. 3.0 mol</label>
+      <label><input type="radio" name="q10"> d. 6.0 mol</label>
+    </div>
+
+    <h2>SECTION 2: DATA-BASED / EXPERIMENTAL WORK — 10 marks</h2>
+
+    <div class="question">
+      <h3>Question 11 — Magnesium oxide experiment [6 marks]</h3>
+
+      <table>
+        <tr><th>Quantity</th><th>Value</th></tr>
+        <tr><td>Mass crucible + lid</td><td>24.80 g</td></tr>
+        <tr><td>Mass crucible + lid + Mg</td><td>25.16 g</td></tr>
+        <tr><td>Mass crucible + lid + product</td><td>25.40 g</td></tr>
+      </table>
+
+      <p>(a) Calculate mass of Mg used. [1]</p>
+      <editor-toolbar></editor-toolbar><div class="answer-area" contenteditable="true"></div>
+
+      <p>(b) Calculate mass of oxygen gained. [1]</p>
+      <editor-toolbar></editor-toolbar><div class="answer-area" contenteditable="true"></div>
+
+      <p>(c) Calculate moles of Mg. [1]</p>
+      <editor-toolbar></editor-toolbar><div class="answer-area" contenteditable="true"></div>
+
+      <p>(d) Calculate moles of O atoms. [1]</p>
+      <editor-toolbar></editor-toolbar><div class="answer-area" contenteditable="true"></div>
+
+      <p>(e) Determine empirical formula. [1]</p>
+      <editor-toolbar></editor-toolbar><div class="answer-area" contenteditable="true"></div>
+
+      <p>(f) Suggest one source of error. [1]</p>
+      <editor-toolbar></editor-toolbar><div class="answer-area" contenteditable="true"></div>
+    </div>
+
+    <div class="question">
+      <h3>Question 12 — First ionisation energy [4 marks]</h3>
+
+      <table>
+        <tr><th>Element</th><th>Li</th><th>Be</th><th>B</th></tr>
+        <tr><td>IE₁ / kJ mol⁻¹</td><td>520</td><td>900</td><td>801</td></tr>
+      </table>
+
+      <p>(a) State trend from Li to Be. [1]</p>
+      <editor-toolbar></editor-toolbar><div class="answer-area" contenteditable="true"></div>
+
+      <p>(b) Explain why B is lower than Be. [2]</p>
+      <editor-toolbar></editor-toolbar><div class="answer-area" contenteditable="true"></div>
+
+      <p>(c) Which element is most reactive metal? [1]</p>
+      <editor-toolbar></editor-toolbar><div class="answer-area" contenteditable="true"></div>
+    </div>
+
+    <h2>SECTION 3: SHORT ANSWER / EXTENDED RESPONSE — 20 marks</h2>
+
+    <div class="question">
+      <h3>Question 13 — Sodium chloride [8 marks]</h3>
+
+      <p>(a) Explain why NaCl has high melting point. [2]</p>
+      <editor-toolbar></editor-toolbar><div class="answer-area" contenteditable="true"></div>
+
+      <p>(b) Explain why solid NaCl does not conduct electricity. [2]</p>
+      <editor-toolbar></editor-toolbar><div class="answer-area" contenteditable="true"></div>
+
+      <p>(c) Explain why molten NaCl conducts electricity. [2]</p>
+      <editor-toolbar></editor-toolbar><div class="answer-area" contenteditable="true"></div>
+
+      <p>(d) Explain why NaCl dissolves in water. [2]</p>
+      <editor-toolbar></editor-toolbar><div class="answer-area" contenteditable="true"></div>
+    </div>
+
+    <div class="question">
+      <h3>Question 14 — Relative atomic mass and isotopes [6 marks]</h3>
+
+      <p>(a) Define relative atomic mass. [2]</p>
+      <editor-toolbar></editor-toolbar><div class="answer-area" contenteditable="true"></div>
+
+      <p>(b) Chlorine has isotopes ³⁵Cl, 75%, and ³⁷Cl, 25%. Calculate Ar. [2]</p>
+      <editor-toolbar></editor-toolbar><div class="answer-area" contenteditable="true"></div>
+
+      <p>(c) State why isotopes have same chemical properties. [2]</p>
+      <editor-toolbar></editor-toolbar><div class="answer-area" contenteditable="true"></div>
+    </div>
+
+    <div class="question">
+      <h3>Question 15 — Calcium carbonate reaction [6 marks]</h3>
+
+      <p>CaCO₃ + 2HCl → CaCl₂ + CO₂ + H₂O</p>
+
+      <p>(a) Find moles in 5.00 g CaCO₃. Mr = 100.1 [2]</p>
+      <editor-toolbar></editor-toolbar><div class="answer-area" contenteditable="true"></div>
+
+      <p>(b) Calculate moles HCl required. [2]</p>
+      <editor-toolbar></editor-toolbar><div class="answer-area" contenteditable="true"></div>
+
+      <p>(c) Calculate mass of CO₂ formed. [2]</p>
+      <editor-toolbar></editor-toolbar><div class="answer-area" contenteditable="true"></div>
+    </div>
+
+    <div class="btns">
+      <button type="button" class="main" onclick="finishExam()">Finish</button>
+      <button type="button" class="main" id="printBtn" onclick="window.print()">Print / Save PDF Response</button>
+    </div>
+
+  </div>
+
+  <div class="finished-box" id="finishedBox">
+    <h2>Exam Finished</h2>
+    <p><strong>Your response is now locked.</strong></p>
+    <p><strong>Finished Date and Time:</strong> <span id="finishDateTime"></span></p>
+    <p><strong>Number of Anti-cheat Warnings:</strong> <span id="finalWarnings"></span></p>
+    <p>You may now click <strong>Print / Save PDF Response</strong>.</p>
+    <p class="warning">No score or answer key is shown. Responses must be checked by the teacher.</p>
+  </div>
+
+</div>
+
+<script>
+let timeLeft = 65 * 60;
+let timerInterval;
+let finished = false;
+let warningCount = 0;
+let examStarted = false;
+
+const deadline = new Date("2026-12-31T23:59:00").getTime();
+
+class EditorToolbar extends HTMLElement {
+  connectedCallback() {
+    this.innerHTML = `
+      <div class="toolbar">
+        <button type="button" onclick="cmd('bold')"><b>B</b></button>
+        <button type="button" onclick="cmd('italic')"><i>I</i></button>
+        <button type="button" onclick="cmd('underline')"><u>U</u></button>
+        <button type="button" onclick="cmd('superscript')">x²</button>
+        <button type="button" onclick="cmd('subscript')">x₂</button>
+        <button type="button" onclick="insertSymbol('°')">°</button>
+        <button type="button" onclick="insertSymbol('→')">→</button>
+        <button type="button" onclick="insertSymbol('⇌')">⇌</button>
+      </div>
+    `;
+  }
+}
+customElements.define("editor-toolbar", EditorToolbar);
+
+function cmd(command) {
+  document.execCommand(command, false, null);
+}
+
+function insertSymbol(symbol) {
+  document.execCommand("insertText", false, symbol);
+}
+
+function enterFullscreen() {
+  if (document.documentElement.requestFullscreen) {
+    document.documentElement.requestFullscreen().catch(() => {
+      alert("Fullscreen failed. Please allow fullscreen mode in your browser.");
+    });
+  } else {
+    alert("Fullscreen is not supported in this browser.");
+  }
+}
+
+function startExam() {
+  const name = document.getElementById("studentName").value.trim();
+  const email = document.getElementById("studentEmail").value.trim();
+
+  if (!name || !email) {
+    alert("Please enter student name and email before starting.");
+    return;
+  }
+
+  if (new Date().getTime() > deadline) {
+    document.body.innerHTML =
+      "<h1 style='text-align:center;margin-top:100px;'>Exam Closed</h1>";
+    return;
+  }
+
+  if (!document.fullscreenElement) {
+    alert("You must click Enter Fullscreen first before starting the exam.");
+    return;
+  }
+
+  examStarted = true;
+
+  document.getElementById("examContent").style.display = "block";
+  document.getElementById("prestartMessage").style.display = "none";
+  document.getElementById("timerBar").style.display = "block";
+
+  timerInterval = setInterval(updateTimer, 1000);
+
+  document.getElementById("startBtn").disabled = true;
+  document.getElementById("fullscreenBtn").disabled = true;
+  document.getElementById("studentName").readOnly = true;
+  document.getElementById("studentEmail").readOnly = true;
+}
+
+function updateTimer() {
+  timeLeft--;
+
+  let minutes = Math.floor(timeLeft / 60);
+  let seconds = timeLeft % 60;
+
+  document.getElementById("timer").textContent =
+    String(minutes).padStart(2,"0") + ":" + String(seconds).padStart(2,"0");
+
+  if (timeLeft <= 0) {
+    clearInterval(timerInterval);
+    finishExam();
+    alert("Time is finished. Your exam has been automatically finished.");
+  }
+
+  if (new Date().getTime() > deadline) {
+    finishExam();
+    document.body.innerHTML =
+      "<h1 style='text-align:center;margin-top:100px;'>Exam Closed After Deadline</h1>";
+  }
+}
+
+function finishExam() {
+  if (finished) return;
+  finished = true;
+
+  document.querySelectorAll("input").forEach(el => {
+    el.disabled = true;
+  });
+
+  document.querySelectorAll(".answer-area").forEach(el => {
+    el.contentEditable = false;
+  });
+
+  document.querySelectorAll(".toolbar").forEach(el => {
+    el.style.display = "none";
+  });
+
+  document.getElementById("printBtn").style.display = "inline-block";
+  document.getElementById("finishedBox").style.display = "block";
+
+  const finishedTime = new Date();
+  document.getElementById("finishDateTime").textContent =
+    finishedTime.toLocaleString();
+
+  document.getElementById("finalWarnings").textContent = warningCount;
+
+  clearInterval(timerInterval);
+}
+
+document.addEventListener("copy", function(e) {
+  e.preventDefault();
+  if (examStarted && !finished) addWarning();
+});
+
+document.addEventListener("cut", function(e) {
+  e.preventDefault();
+  if (examStarted && !finished) addWarning();
+});
+
+document.addEventListener("paste", function(e) {
+  e.preventDefault();
+  if (examStarted && !finished) addWarning();
+});
+
+document.addEventListener("keydown", function(e) {
+  if (e.ctrlKey || e.key === "F12" || e.key === "PrintScreen") {
+    e.preventDefault();
+    if (examStarted && !finished) addWarning();
+  }
+});
+
+document.addEventListener("visibilitychange", function() {
+  if (document.hidden && examStarted && !finished) addWarning();
+});
+
+document.addEventListener("fullscreenchange", function() {
+  if (!document.fullscreenElement && examStarted && !finished) {
+    addWarning();
+    alert("Warning: You exited fullscreen mode.");
+  }
+});
+
+function addWarning() {
+  warningCount++;
+  document.getElementById("warnings").textContent = warningCount;
+}
+</script>
+
+</body>
+</html>
