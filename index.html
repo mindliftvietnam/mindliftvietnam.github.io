@@ -1,73 +1,378 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>MindLift Global Learning</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background: #ffffff;
-      color: #111;
-    }
-    header {
-      background: #000;
-      color: #fff;
-      padding: 40px;
-      text-align: center;
-    }
-    section {
-      padding: 40px;
-      max-width: 900px;
-      margin: auto;
-    }
-    .cta {
-      background: gold;
-      padding: 15px 25px;
-      display: inline-block;
-      text-decoration: none;
-      color: #000;
-      font-weight: bold;
-      border-radius: 5px;
-    }
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #f2f2f2;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MindLift Global Learning</title>
+
+<style>
+:root{
+  --navy:#001f3f;
+  --deep:#00152b;
+  --gold:#d8a84f;
+  --light:#f7f1df;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family: Arial, Helvetica, sans-serif;
+  background:var(--deep);
+  color:var(--light);
+}
+
+.page{
+  width:100%;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at top right, rgba(255,255,255,.18), transparent 35%),
+    linear-gradient(135deg,#00142b 0%,#002a52 45%,#000d1f 100%);
+  padding:28px 42px;
+}
+
+.hero{
+  display:grid;
+  grid-template-columns: 38% 62%;
+  gap:24px;
+  align-items:start;
+}
+
+.logo-title{
+  display:flex;
+  align-items:center;
+  gap:24px;
+  margin-bottom:20px;
+}
+
+.logo{
+  width:170px;
+  height:170px;
+  border-radius:50%;
+  border:5px solid var(--gold);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:var(--gold);
+  font-weight:bold;
+  font-size:20px;
+  box-shadow:0 0 25px rgba(216,168,79,.45);
+}
+
+.brand h1{
+  font-family: Georgia, serif;
+  font-size:64px;
+  line-height:1;
+  margin:0;
+  color:var(--gold);
+}
+
+.brand p{
+  font-family: Georgia, serif;
+  font-style:italic;
+  font-size:22px;
+  color:#f4d58c;
+}
+
+.hero-image{
+  min-height:310px;
+  border-radius:0 0 0 120px;
+  background:
+    linear-gradient(to right, rgba(0,21,43,.85), rgba(0,21,43,.15)),
+    url("YOUR-CLASSROOM-IMAGE.jpg") center/cover;
+  border-bottom:6px solid var(--gold);
+}
+
+.welcome{
+  margin-top:20px;
+  font-size:20px;
+  line-height:1.55;
+}
+
+.welcome h2{
+  font-size:32px;
+  margin:0 0 12px;
+  color:white;
+}
+
+.offer-title{
+  text-align:center;
+  color:var(--gold);
+  font-size:28px;
+  font-weight:bold;
+  margin:28px 0 14px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:0;
+  border:2px solid var(--gold);
+  border-radius:18px;
+  overflow:hidden;
+}
+
+.card{
+  padding:22px;
+  border-right:2px solid var(--gold);
+  min-height:245px;
+}
+
+.card:last-child{
+  border-right:none;
+}
+
+.card h3{
+  margin-top:0;
+  color:white;
+  font-size:20px;
+}
+
+.card ul{
+  padding-left:20px;
+  line-height:1.55;
+}
+
+.lower{
+  display:grid;
+  grid-template-columns: 1fr 2fr;
+  gap:0;
+  border:2px solid var(--gold);
+  border-radius:18px;
+  margin-top:18px;
+  overflow:hidden;
+}
+
+.ready{
+  margin-top:28px;
+  background:linear-gradient(135deg,#f6d17a,#8c6725);
+  color:#00152b;
+  padding:20px;
+  border-radius:18px;
+  max-width:420px;
+  font-weight:bold;
+}
+
+.ready a{
+  display:block;
+  margin-top:12px;
+  background:#001f3f;
+  color:white;
+  padding:12px 18px;
+  border-radius:28px;
+  text-decoration:none;
+  font-size:15px;
+}
+
+.discounts{
+  display:flex;
+  justify-content:space-around;
+  text-align:center;
+  margin-top:20px;
+}
+
+.discounts strong{
+  display:block;
+  font-size:26px;
+  color:white;
+}
+
+.footer{
+  margin-top:32px;
+  border-top:2px solid var(--gold);
+  padding-top:20px;
+  display:grid;
+  grid-template-columns: 1.2fr 1fr 1.3fr 1.4fr .6fr;
+  gap:18px;
+  align-items:center;
+  font-size:20px;
+}
+
+.footer strong{
+  color:var(--gold);
+  display:block;
+  font-size:24px;
+}
+
+.qr{
+  width:90px;
+  height:90px;
+  background:white;
+  color:#000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:14px;
+  margin-left:auto;
+}
+
+.bottom{
+  text-align:center;
+  color:var(--gold);
+  font-family:Georgia, serif;
+  margin-top:16px;
+  font-size:24px;
+}
+
+.bottom em{
+  color:#f4d58c;
+  font-size:18px;
+}
+
+@media(max-width:900px){
+  .hero{
+    grid-template-columns:1fr;
+  }
+
+  .logo-title{
+    flex-direction:column;
+    text-align:center;
+  }
+
+  .brand h1{
+    font-size:44px;
+  }
+
+  .grid,
+  .lower,
+  .footer{
+    grid-template-columns:1fr;
+  }
+
+  .card{
+    border-right:none;
+    border-bottom:2px solid var(--gold);
+  }
+
+  .footer{
+    text-align:center;
+  }
+
+  .qr{
+    margin:auto;
+  }
+}
+</style>
 </head>
+
 <body>
+<div class="page">
 
-<header>
-  <h1>MindLift Global Learning</h1>
-  <p>Unlocking Potential. Achieving Excellence.</p>
-</header>
+  <section class="hero">
+    <div>
+      <div class="logo-title">
+        <div class="logo">MINDLIFT<br>GLOBAL<br>LEARNING</div>
+        <div class="brand">
+          <h1>MindLift<br>Global Learning</h1>
+          <p>Where Every Child’s Potential Takes Flight</p>
+        </div>
+      </div>
 
-<section>
-  <h2>Our Programs</h2>
-  <p>We provide high-quality tutoring in Mathematics, Science, and English aligned with Cambridge, IB, and WACE curricula.</p>
-</section>
+      <div class="welcome">
+        <h2>📖 Welcome to MindLift Global Learning</h2>
+        <p>
+          At MindLift, we believe every child deserves a nurturing environment to grow into a confident,
+          capable, and compassionate learner.
+        </p>
+        <p>
+          Based in Vietnam, we empower students through a high-quality bilingual education tailored to
+          both local and international pathways.
+        </p>
+        <p>
+          Our vision is simple: to bridge academic gaps, inspire lifelong learning, and guide each child
+          toward global opportunities — without leaving anyone behind.
+        </p>
+      </div>
 
-<section>
-  <h2>Why Choose Us?</h2>
-  <ul>
-    <li>Experienced international educators</li>
-    <li>Personalised learning approach</li>
-    <li>Proven academic results</li>
-  </ul>
-</section>
+      <div class="ready">
+        📝 READY TO ENROLL?
+        <p>Fill out our quick registration form here:</p>
+        <a href="https://forms.gle/xQnfdAz84wetzCNW8" target="_blank">
+          👉 https://forms.gle/xQnfdAz84wetzCNW8
+        </a>
+      </div>
+    </div>
 
-<section>
-  <h2>Book a Trial Class</h2>
-  <p>Contact us via Zalo or WhatsApp to get started.</p>
-  <a class="cta" href="#">Contact Now</a>
-</section>
+    <div class="hero-image"></div>
+  </section>
 
-<footer>
-  <p>© 2026 MindLift Global Learning</p>
-</footer>
+  <div class="offer-title">🎯 WHAT WE OFFER</div>
 
+  <section class="grid">
+    <div class="card">
+      <h3>📖 PERSONALIZED ACADEMIC SUPPORT & TEST PREPARATION</h3>
+      <ul>
+        <li>1-on-1 and group tutoring to meet your child's unique learning style</li>
+        <li>Mastery-focused support for struggling, average, and advanced students</li>
+        <li>Weekly progress updates and parental check-ins</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>🌍 INTERNATIONAL CURRICULUM TRACKS</h3>
+      <ul>
+        <li>MOET Vietnam National Program</li>
+        <li>Cambridge International</li>
+        <li>International Baccalaureate: PYP, MYP, DP</li>
+        <li>Australian WA/NSW</li>
+        <li>AP / SAT / Ontario Canada</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>🧩 PROGRAM TYPES</h3>
+      <ul>
+        <li>Regular: Homework help, study skills, foundational subjects</li>
+        <li>Enrichment: Olympiads, public speaking, advanced literacy & STEM</li>
+        <li>Remedial: Learning support, confidence building, study recovery</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="lower">
+    <div class="card">
+      <h3>🎧 DELIVERY MODES</h3>
+      <ul>
+        <li>Offline: Safe, inspiring classroom settings</li>
+        <li>Online: Interactive learning via EdTech platforms and LMS integration</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>💎 WHY CHOOSE MINDLIFT?</h3>
+      <ul>
+        <li>No learner is left behind — every student receives tailored support</li>
+        <li>Structured support for all levels, learning paces, and academic needs</li>
+        <li>Group discounts available</li>
+      </ul>
+
+      <div class="discounts">
+        <div>👥 Pair<br><strong>5% off</strong></div>
+        <div>👨‍👩‍👧 Group<br><strong>10–15% off</strong></div>
+        <div>🏫 Class<br><strong>20% off</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div>
+      CONTACT US TODAY
+      <strong>Minh Lan Tran (Ms.)</strong>
+    </div>
+    <div>📞 <strong>0902 935 844</strong></div>
+    <div>📍 Landmark 4,<br>Ho Chi Minh City, Vietnam</div>
+    <div>✉️ mindlift.vietnam@gmail.com</div>
+    <div class="qr">QR CODE</div>
+  </footer>
+
+  <div class="bottom">
+    MindLift Global Learning<br>
+    <em>“Building confident learners for a brighter tomorrow.”</em>
+  </div>
+
+</div>
 </body>
 </html>
